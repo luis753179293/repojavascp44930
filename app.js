@@ -1,120 +1,109 @@
 
     alert ("¡¡¡ BIENVENIDO AL SIMULADOR DE INVERSION !!!")
     
-
-
-
-    
-    
-    let Solicitudes = [{ nombre: "Juan Perez", importe: 30000, dni: 39495495, aprobada: true }, { nombre: "Juan Carlos Gomez", importe: 50000, dni: 30394584, aprobada: false }, { nombre: "Pedro Pintos", importe: 60000, dni: 25959695, aprobrada: false }]
-
-    class Solicitud {
-
-        constructor (nombre, importe, dni) {
-            this.nombre = nombre;
-            this.importe = parseFloat (importe);
-            this.dni = parseInt (dni);
-            this.aprobada=false;
-        }
-        
-    
-    }
+    let Solicitudes = []; 
+    let dniEncontrado = null;
 
 
     function mostrarSolicitud (elementoBusqueda) {
-
         const resultado = Solicitudes.find (Solicitud => Solicitud.dni === elementoBusqueda)    
-    
         console.log(resultado)
      }
 
-
-
-
     function agregarSolicitud (nombrePrestamo, importePrestamo, dniPrestamo) { 
-
         const persona1 = Solicitudes.push (new Solicitud (nombrePrestamo, importePrestamo, dniPrestamo));
-
-
         console.log("Se ha registrado su solicitud!")
-
     }
 
-    
-
-    
     let entrada1 = prompt("Seleccione un proceso:  \n 1: Menu de prestamo. \n 2: Simular una inversion. ")
-
     entrada1 = parseInt (entrada1)
-    
-
     switch(entrada1){
 
         case 1:
+            let entrada2 = prompt ("Seleccione una accion: \n 1: Realizar solicitud de prestamo. \n 2: Salir.")
 
-
-            let entrada2 = prompt ("Seleccione una accion: \n 1: Realizar solicitud de prestamo. \n 2: Buscar informacion de solicitud. \n 3: Aprobar una solicitud. (ADMIN)")
-            
             entrada2 = parseInt (entrada2)
             
-            
-
             switch(entrada2){
-
-
                 case 1: 
-                            let importePrestamo = prompt ("Inicio solicitud de prestamo. Ingrese el monton que desea solicitar: ")
-
-                            importePrestamo = parseInt (importePrestamo)
-
-                            let nombrePrestamo = prompt ("Ingrese su nombre completo: ")
                             
-                            let dniPrestamo = prompt ("Ingerse su numero de documento: ")
+                            alert ("ingrese datos")
+                            // localStorage.setItem('Solicitudes', JSON.stringify(Solicitudes));
 
-                            dniPrestamo = parseInt (dniPrestamo) 
-
-                            agregarSolicitud (nombrePrestamo, importePrestamo, dniPrestamo); 
-
-                            console.log(Solicitudes)
-                    
-                            break
+                            /// inputs
+                            const titular = document.getElementById('nombre');
+                            const dni = document.getElementById('dni');
+                            const monto1 = document.getElementById('monto');
+                            const mostrarDni = document.getElementById('dniSoli');
+                            const tabla = document.getElementById('items');
             
-                case 2: 
-                            let infoSolicitud = prompt ("Ingrese el DNI que figura en su solicitud:")
-                            infoSolicitud = parseInt (infoSolicitud)
-                            
-                            mostrarSolicitud(infoSolicitud);
-                            break
+                            /// boton
+                            const enviarSolicitud = document.getElementById('botonenviar')
+                            const mostrarSolicitud = document.getElementById('botonVer')
+                            const verSolicitudes = document.getElementById('versolis')
 
-                case 3: 
+                            //Se carga en localStorage la solicitud.
+                            enviarSolicitud.addEventListener('click', (evento)=>{
+                                evento.preventDefault();
+                                Solicitudes.push(new Solicitud(nombre.value, parseInt(monto1.value), parseInt(dni.value)));
+                                localStorage.setItem('Solicitudes', JSON.stringify(Solicitudes));
 
-                            let infoAprobar = prompt ("Ingrese el DNI que figura en la solicitud:")
-                            infoAprobar = parseInt (infoAprobar)
-                            
+                                alert('Solicitud Enviada')
+                            } )
+
                            
-                            for (let i=0 ; i< Solicitudes.length ; i++){
-                                if (Solicitudes[i].dni== infoAprobar){
-                
-                                    Solicitudes[i].aprobada = true;
-                                    
+                            mostrarSolicitud.addEventListener('click', (e)=> {
+                                e.preventDefault();
+                                Solicitudes = JSON.parse(localStorage.getItem('Solicitudes'));
+                                const dniConsulta = mostrarDni.value;
+                                dniEncontrado = buscarDni(dniConsulta);
+                                if (dniEncontrado != undefined){ 
+
+                                    const row = document.createElement('tr'); ///creo la fila
+                                    let th = document.createElement('th');
+                                    th.textContent = '1';
+                                    row.appendChild(th);
+
+                                    let td = document.createElement('td');
+                                    td.textContent = dniEncontrado.nombre;
+                                    row.appendChild(td);
+
+                                    td = document.createElement('td');
+                                    td.textContent = dniEncontrado.dni;
+                                    row.appendChild(td);
+
+                                    td = document.createElement('td');
+                                    td.textContent = dniEncontrado.importe;
+                                    row.appendChild(td);
+
+                                    tabla.appendChild(row);
                                 }
-                
-                
-                
+                                else{
+                                    console.log("SOLICITUD NO ENCONTRADA")
+                                }
+                            } )
+
+                            verSolicitudes.addEventListener('click', (e)=>{
+                                e.preventDefault();
+                                console.log(Solicitudes)
+                            })
+
+                            function buscarDni (dniConsultado){ 
+                                return Solicitudes.find((elemento) => {
+                                    return elemento.dni == dniConsultado
+                                })
                             }
-                    
-                            
-
-                            console.log(Solicitudes)
                             break
-                        }
-            
-            break
+                        case 2:
+                                alert("¡¡FIN DEL SIMULADOR!!")
+                        break
 
-            
-                
-                
 
+                         }
+                            
+            
+            
+        break
         case 2:
 
                 let monto = prompt("Ingrese monto a invitir:")
