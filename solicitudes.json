@@ -1,0 +1,49 @@
+[{
+    "nombre": "Rodolfo Gramajo",
+    "importe": 20000,
+    "dni": 39549305,
+    "aprobada": false
+},
+{
+    "nombre": "Gabriel Ortega",
+    "importe": 30000,
+    "dni": 39549304,
+    "aprobada": false
+},
+{
+    "nombre": "Ivan Sanchez",
+    "importe": 40000,
+    "dni": 39549307,
+    "aprobada": false
+},
+{
+    "nombre": "Valentina Juarez",
+    "importe": 50000,
+    "dni": 39549308,
+    "aprobada": false
+},
+{
+    "nombre": "Sofia Perez",
+    "importe": 60000,
+    "dni": 39549309,
+    "aprobada": false
+},
+{
+    "nombre": "Carla Petro",
+    "importe": 70000,
+    "dni": 39549300,
+    "aprobada": false
+},
+{
+    "nombre": "Ricardo Riquelme",
+    "importe": 80000,
+    "dni": 39549354,
+    "aprobada": false
+},
+{
+    "nombre": "Luis Martinez",
+    "importe": 90000,
+    "dni": 39549334,
+    "aprobada": false
+}
+]
